@@ -1,0 +1,326 @@
+#: Should you change your keyboard layout some time, delete
+# this file and re-run i3-config-wizard(1).
+#
+# i3 config file (v4)
+#
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+#
+# This config file uses keycodes (bindsym) and was written for the QWERTY
+# layout.
+#
+# To get a config file with the same key positions, but for your current
+# layout, use the i3-config-wizard
+#
+
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+# vim: filetype=cfg
+# Variable setting
+set $defaultmod Mod4
+set $up i
+set $down k
+set $left j
+set $right l
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:DejaVu Sans Mono 10
+
+########## Autolaunch ##########
+exec guake
+exec compton --inactive-dim 0.2
+exec mpd && exec mpc pause
+#exec xfce4-panel -d
+exec kdeconnect-indicator
+exec --no-startup-id xrandr
+#exec polybar white
+exec --no-startup-id /usr/lib64/polkit-gnome/polkit-gnome-authentication-agent-1
+exec nitrogen --restore
+exec dunst &
+
+exec --no-startup-id discord
+exec  redshift -O 4500
+exec xrandr --output eDP-1 --primary
+exec sh ~/Documents/dev/py/Threatron/scripts/pollingservice
+bindsym Mod4+n exec killall polybar || polybar white
+bindsym Mod4+Control+c exec killall polybar || polybar white2
+exec kitty --class="clock" ncmpcpp -s clock
+bindsym Mod4+c [class="clock"] scratchpad show
+bindsym Mod4+m exec sh ~/.config/i3/monitorsetup
+exec sh ~/.config/i3/monitorsetup
+########## Keybindings ##########
+workspace 10 output HDMI-1
+workspace 2 output VGA-1
+###
+bindsym Mod4+Shift+Return exec kitty --title="Ubuntu docker" docker run -it ubuntu bash
+bindsym Mod4+Control+Return exec kitty
+
+# resize shrink width 10 px or 10 ppt
+bindsym XF86MonBrightnessUp exec light -A 10 # Increase Brightness
+bindsym XF86MonBrightnessDown exec light -U 10 # Decrease Brightness
+### Media Player ###
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioNext exec playerctl next
+bindsym Mod4+Shift + f exec opera &
+bindsym Mod4+b exec firefox
+bindsym Mod4+Shift+d exec thunar &
+bindsym Mod4+t exec kitty -e ranger ~/
+# Raise Volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 5 && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
+# Lower Volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 5 && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
+bindsym XF86AudioMute exec --no-startup-id pamixer -t # Toggle muting
+# Use Mouse+Mod4 to drag floating windows to their wanted position
+floating_modifier Mod4
+# Start rofi #
+bindsym Mod4+Tab exec rofi -show combi
+bindsym Mod4+u exec ~/.config/i3/0x0 recorda
+bindsym Mod4+Shift+x exec ~/.config/i3/0x0 area
+bindsym Mod4+Shift+w exec ~/.config/i3/0x0 window
+bindsym Mod4+Control+v exec ~/.config/i3/0x0 text
+bindsym Print exec ~/.config/i3/0x0 screen
+bindsym Mod4+Return exec kitty
+# SCRATCHUPADU
+#
+#
+exec gpodder;
+for_window [class="Gpodder"] floating enable
+for_window [class="Gpodder"] move scratchpad
+bindsym Mod4+Shift+n [class="Gpodder"] scratchpad show
+exec kitty --name="terminal"
+for_window[instance="reddit"] floating enable
+for_window[instance="terminal"] floating enable
+for_window[instance="terminal"] move scratchpad
+bindsym Mod4+Control+1 [instance="terminal"] scratchpad show
+exec kitty --name="scratchpad"
+for_window[instance="scratchpad"] floating enable
+for_window [instance="scratchpad"] move scratchpad
+bindsym Mod4+y [instance="scratchpad"] scratchpad show
+bindsym Mod4+Shift+v exec pavucontrol &
+exec kitty --name="ncmpcpp" ncmpcpp
+for_window[instance="ncmpcpp"] floating enable
+for_window[instance="ncmpcpp"] move scratchpad
+bindsym Mod4+Shift+m [instance="ncmpcpp"] scratchpad show;exec pd
+for_window [class="Pavucontrol"] floating enable
+for_window [class="okular"] floating enable
+assign [class="^mpv$"] $ws10
+for_window [class="Peek"] floating enable
+for_window [class="feh"] floating enable; resize shrink width 100000px; resize grow width 1000; resize shrink height 10000px; resize grow height 400px;
+bindsym Mod4+Shift+g exec gns3
+bindsym cedilla exec guake-toggle
+bindsym Mod4+cedilla workspace $ws7
+bindsym Mod4+ccaron exec kitty ranger ~/Downloads/Music/ #č
+bindsym Mod4+zcaron exec kitty nvim ~/.config/i3/config #ž
+bindsym Mod4+scaron exec xdotool getactivewindow windowsize 700 600 && xdotool getactivewindow windowmove 50% 50%   #š
+bindsym Mod4+p exec playerctl play-pause
+#dstroke=đ
+bindsym Mod4+g exec playerctl next
+bindsym Mod4+Control+m exec sh ~/.config/i3/musicSelect
+# kill focused window
+exec tc-twitch
+for_window [class="Tc"] floating enable
+for_window [class="Tc"] move scratchpad
+bindsym Mod4+Control+t [class="Tc"] scratchpad show
+
+bindsym Mod4+q kill
+# open qutebrowser
+bindsym --whole-window button2 kill
+bindsym Mod4+Shift+q exec qutebrowser
+bindsym Mod4+Control+r exec kitty -e rtv --enable-media
+# start dmenu (a program launcher)
+#bindsym Mod4+d exec dmenu_run
+#
+#
+#
+#T W I T C H T H O T S
+bindsym Mod4+Shift+t exec cd ~/Documents/dev/py/Threatron/scripts/ && sh simplewatch
+bindsym Mod4+period exec killall stalonetray || sh ~/.config/i3/nmgui
+exec kitty --name="secondaryterm"
+for_window [instance="secondaryterm"] floating enable
+for_window [instance="secondaryterm"] move scratchpad
+bindsym Mod4+minus [instance="secondaryterm"] scratchpad show
+# start hexchat
+bindsym Mod4+Shift+h exec hexchat
+
+# change focus
+bindsym Mod4+$left focus left
+bindsym Mod4+$down focus down
+bindsym Mod4+$up focus up
+bindsym Mod4+$right focus right
+
+# alternatively, you can use the cursor keys:
+bindsym Mod4+Left focus left
+bindsym Mod4+Down focus down
+bindsym Mod4+Up focus up
+bindsym Mod4+Right focus right
+
+# move focused window
+bindsym Mod4+Shift+$left move left
+bindsym Mod4+Shift+$down move down
+bindsym Mod4+Shift+$up move up
+bindsym Mod4+Shift+$right move right
+
+# alternatively, you can use the cursor keys:
+bindsym Mod4+Shift+Left move left
+bindsym Mod4+Shift+Down move down
+bindsym Mod4+Shift+Up move up
+
+# split in horizontal orientation
+bindsym Mod4+h split h
+
+# split in vertical orientation
+bindsym Mod4+v split v
+
+# enter fullscreen mode for the focused container
+bindsym Mod4+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym Mod4+Shift+s layout stacking
+bindsym Mod4+w layout tabbed
+bindsym Mod4+e layout toggle split
+
+# toggle tiling / floating
+bindsym Mod4+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym Mod4+space focus mode_toggle
+
+# focus the parent container
+bindsym Mod4+Shift+a focus parent
+focus_follows_mouse yes
+
+# focus the child container
+#bindsym Mod4+d focus child
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym Mod4+Control+s scratchpad show
+
+bindsym Mod4+Shift+e move scratchpad
+bindsym Mod4+comma exec sh ~/.config/i3/linktompv
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+
+# switch to workspace
+bindsym Mod4+1 workspace $ws1
+bindsym Mod4+2 workspace $ws2
+bindsym Mod4+3 workspace $ws3
+bindsym Mod4+4 workspace $ws4
+bindsym Mod4+a workspace $ws5
+bindsym Mod4+5 workspace $ws5
+bindsym Mod4+6 workspace $ws6
+bindsym Mod4+s workspace $ws6
+bindsym Mod4+7 workspace $ws7
+bindsym Mod4+d workspace $ws7
+bindsym Mod4+8 workspace $ws8
+bindsym Mod4+9 workspace $ws9
+bindsym Mod4+0 workspace $ws10
+
+# move focused container to workspace
+bindsym Mod4+Shift+1 move container to workspace $ws1
+bindsym Mod4+Shift+2 move container to workspace $ws2
+bindsym Mod4+Shift+3 move container to workspace $ws3
+bindsym Mod4+Shift+4 move container to workspace $ws4
+bindsym Mod4+Shift+5 move container to workspace $ws5
+bindsym Mod4+Shift+6 move container to workspace $ws6
+bindsym Mod4+Shift+7 move container to workspace $ws7
+bindsym Mod4+Shift+8 move container to workspace $ws8
+bindsym Mod4+Shift+9 move container to workspace $ws9
+bindsym Mod4+Shift+0 move container to workspace $ws10
+
+# move container
+bindsym Mod4+z move workspace to output left
+bindsym Mod4+x move workspace to output right
+
+# reload the configuration file
+bindsym Mod4+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym Mod4+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+#bindsym Mod4+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym $left       resize shrink width 10 px or 10 ppt
+        bindsym $down       resize grow height 10 px or 10 ppt
+        bindsym $up         resize shrink height 10 px or 10 ppt
+        bindsym $right      resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left        resize shrink width 10 px or 10 ppt
+        bindsym Down        resize grow height 10 px or 10 ppt
+        bindsym Up          resize shrink height 10 px or 10 ppt
+        bindsym Right       resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or Mod4+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym Mod4+r mode "default"
+}
+bindsym Mod4+r mode "resize"
+assign [class="discord"] $ws5
+set $c_red_l #fb4934
+set $c_blue_l #83a598
+set $c_blue_d #458588
+set $c_magenta_d #b16286
+set $c_black_d #3b4252
+set $c_cyan_l #8ec07c
+set $c_magenta_l #d3869b
+set $c_yellow_l #fabd2f
+set $c_red_d #cc241d
+set $c_background #2e3440
+set $c_cyan_d #689d6a
+set $c_green_l #b8bb26
+set $c_foreground #ebdbb2
+set $c_bg_d #1D2021
+set $c_green_d #98971a
+set $c_yellow_d #d79921
+set $c_cursor #fff000
+set $c_white_l #fbf1c7
+set $c_black_l #bf616a
+set $c_poly_white #3b4252
+# --- APPLY XRES END
+
+#class                  border         background        text          split
+client.focused          $c_poly_white  $c_poly_white    $c_black_l    $c_poly_white
+client.focused_inactive $c_black_d    $c_background    $c_black_l    $c_black_d
+client.unfocused        $c_black_d    $c_background    $c_black_l    $c_black_d
+client.urgent           $c_magenta_l  $c_magenta_l  $c_black_l    $c_magenta_l
+client.background       $c_background
+
+######### i3-gaps integration ##########
+
+for_window [class="^.*"] border pixel 5
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [title="Preferences$"] floating enable
+for_window [title="scratchpad"] sticky enable
+for_window [class="clock"] floating enable
+for_window [class="vlc"] $ws5
+for_window [class="clock"] move scratchpad
+for_window [title="smoll"] resize shrink width 80;resize shrink width 80;resize shrink width 80
+#EXPERIMENTAL THINGS
+focus_on_window_activation smart
+hide_edge_borders smart

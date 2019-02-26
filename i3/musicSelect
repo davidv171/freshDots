@@ -1,0 +1,14 @@
+#!/bin/bash
+music_folder=~/Downloads/Music/
+cd "$music_folder"
+playlists=$(find . -type f -name '*.xspf')
+choice=$(echo -e "$playlists\nPodcasts"  | rofi -dmenu)
+echo $choice
+if [[ $choice == "Podcasts" ]];then
+    killall vlc
+    vlc "$HOME/Downloads/Music/Podcasts/"
+fi
+if [[ -n $choice ]];then
+    killall vlc
+    vlc $choice
+fi

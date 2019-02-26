@@ -1,0 +1,3 @@
+#!/bin/bash
+#Spawn a new frame in the given direction and a program into that newly created frame
+herbstclient split $1 0.5 && herbstclient cycle_frame +1 && herbstclient spawn $2

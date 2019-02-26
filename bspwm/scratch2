@@ -1,0 +1,2 @@
+bspc query --desktop 11 -N > /tmp/scratchid2
+$SHELL

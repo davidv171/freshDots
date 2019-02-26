@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+layout="$(bspc wm -d)"
+canvas="$(extract_canvas <(echo $layout))"
+rules="$(induce_rules <(echo $layout))"
+windows="$(echo "$layout" | jq -r '.. | .? | select (.client.state != null) | .id')"
+for i in $windows; do
+    pid=$(xprop -id $i | grep "_NET_WM_PID(CARDINAL)")
+    pid=${pid#*"= "}
+    commandline+=$'\n'
+    commandline+="$(tr '\000' ' ' < /proc/"$pid"/cmdline) & disown"
+done
+
+echo "$canvas" > out_canvas
+script="bspc wm -l $(realpath ./out_canvas)"
+script+="$(printf '\n%s' "$rules")"
+script+="$(printf '\n%s' "$commandline")"
+echo "$script" > out.sh

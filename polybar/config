@@ -1,0 +1,495 @@
+
+;--------------------------------------BSPWM BAR --------------------------
+[bar/bspwm]
+;------------;
+; DIMENSIONS
+;
+;------------;
+width = 100%
+height = 12
+offset-y = 0
+offset-x = 0
+bottom = false
+border-top-size = 10
+border-bottom-size = 10
+border-right-size = 10
+border-left-size=10
+monitor-strict=true
+;----------;
+; LOCATION ;
+;----------;
+
+
+
+monitor = eDP-1
+wm-restack = none
+override-redirect = false
+scroll-up = bspwm-wsnext
+scroll-down = bspwm-wsprev
+;-------;
+; FONTS ;
+;-------;
+
+font-0 = Fira Code:size=5;3
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=8;3"
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=8;3"
+font-3 = "Font Awesome 5 Brands:pixelsize=8;3"
+font-4 = "Terminus:pixelsize=8;2"
+font-5 = "FontAwesome:pixelsize=8;2"
+
+;--------;
+; COLORS ;
+;--------;
+
+
+border-color = #f3f3f3
+background = #f3f3f3
+foreground = #4d4d4c
+foreground-alt = #555
+primary = #ffb52a
+secondary = #e60053
+
+
+
+;---------------;
+; MISCELLANEOUS ;
+;---------------;
+
+fixed-center = true
+padding-left = 2
+padding-right = 2
+module-margin = 1.5
+separator = " | "
+#C O M F Y
+modules-center = title
+modules-left = date time mellow
+modules-right = go-weather backlight volume battery
+
+;tray-position = left
+;tray-detached = true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[module/i3]
+type = internal/i3
+
+pin-workspaces = false
+strip-wsnumbers = true
+wrapping-scroll = true
+index-sort = true
+label-focused-foreground = #d8dee9
+label-unfocused-foreground = #3b4252
+label-focused = %index%
+label-unfocused = %index%
+label-visible = %index%
+label-urgent-foregound = #B48EAD
+label-focused-padding = 4
+label-unfocused-padding = 4
+label-visible-padding = 4
+;ws-icon-default = 
+;label-focused	= 
+;label-unfocused = 
+[module/time]
+type = internal/date
+interval = 1.0
+
+date = %H:%M:%S
+[module/date]
+type = internal/date
+
+date = %e %B - %A
+label = %date%
+
+
+[module/battery]
+type = internal/battery
+
+battery = BAT0
+
+poll-interval = 1
+
+full-at = 95
+
+label-discharging = %percentage%%
+label-charging = Charging %percentage%%
+label-full = FULL
+
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <ramp-capacity> <label-full>
+format-charging =  <label-charging>
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+[module/volume]
+type = internal/pulseaudio
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+sink = alsa_output.pci-0000_00_1b.0.analog-stereo
+
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+; Default: true
+use-ui-max = true
+; Available tags:
+;   <label-volume> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-volume = <ramp-volume> <label-volume>
+
+; Available tags:
+;   <label-muted> (default)
+;   <ramp-volume>
+;   <bar-volume>
+;format-muted = <label-muted>
+
+; Available tokens:
+;   %percentage% (default)
+;label-volume = %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+label-muted =
+label-muted-foreground = #666
+
+; Only applies if <ramp-volume> is used
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-headphones-0 = 
+;PING SCRIPT
+;
+;
+[module/go-weather]
+type = custom/script
+exec = ~/.config/i3/go-weather
+interval = 300
+[module/monitor]
+type = custom/script
+exec = ~/.config/i3/currentMonitor
+interval = 0.1
+format-padding = 4
+[module/info-pingrtt]
+type = custom/script
+exec = ~/Documents/info-pingrtt.sh
+interval = 10
+
+[module/playerctl]
+type = custom/script
+exec = ~/.config/i3/vlcControl
+click-left = playerctl play-pause
+click-middle = playerctl previous
+click-right = playerctl next
+interval=1
+[module/mellow]
+type = custom/script
+exec = ~/.config/i3/mellowst
+click-left = MellowPlayer -p
+click-middle = MellowPlayer -t
+click-right = MellowPlayer -f
+interval = 1
+[module/mpd]
+type = internal/mpd
+
+label-offline =
+format-online = <icon-prev> <toggle> <icon-next> <label-song> <bar-progress>
+format-offline = <label-offline>
+host = 127.0.0.1
+port = 6600
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 45
+label-song-ellipsis = true
+[module/backlight]
+type = internal/backlight
+enable-scroll=true
+; Use the following command to list available cards:
+; $ ls -1 /sys/class/backlight/
+card = intel_backlight
+
+format = <ramp> <label>
+
+label = %percentage%%
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+[module/wlan]
+type = internal/network
+
+interface = wlp7s0
+format-background = #1D2021
+label-foreground = #d8dee9
+
+interval = 5
+
+label-connected =  %essid%
+label-disconnected =  Not Connected
+
+[module/cpu]
+type = internal/cpu
+label =  %percentage%%
+
+
+[module/memory]
+type = internal/memory
+label =  %gb_used%
+
+
+
+[module/menu0]
+type = custom/menu
+format = <label-toggle> <menu>
+;format-underline = ${colors.white}
+format-padding = 1
+;format-margin = 1
+format-background = #1D2021
+format-foreground = #d8dee9
+;format-background = ${colors.black}
+
+menu-0-0 = " shutdown "
+menu-0-0-exec = shutdown now
+menu-0-1 = " restart "
+menu-0-1-exec = shutdown -r now
+menu-0-2 =   cancel
+
+
+label-open = 
+label-close =
+
+[module/title]
+type = internal/xwindow
+; Available tags:
+;   <label> (default)
+format = <label>
+format-padding = 4
+
+; Available tokens:
+;   %title%
+; Default: %title%
+label = %title%
+label-maxlen = 85
+
+; Used instead of label when there is no window title
+; Available tokens:
+;   None
+[bar/white2]
+
+;------------;
+; DIMENSIONS ;
+;------------;
+
+width = 100%
+height = 12
+offset-y = 0
+offset-x = 0
+
+border-top-size = 10
+border-bottom-size = 10
+border-right-size = 10
+border-left-size=10
+monitor-strict=true
+;----------;
+; LOCATION ;
+;----------;
+
+
+
+bottom = false
+monitor = eDP-1-1
+wm-restack = none
+override-redirect = false
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+;-------;
+; FONTS ;
+;-------;
+
+font-0 = Nerd:size=6;3
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=8;3"
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=8;3"
+font-3 = "Font Awesome 5 Brands:pixelsize=8;3"
+font-4 = "Terminus:pixelsize=8;2"
+font-5 = "FontAwesome:pixelsize=8;2"
+;--------;
+; COLORS ;
+;--------;
+
+
+border-color = #d8dee9
+background = #d8dee9
+foreground = #2e3440
+foreground-alt = #555
+
+
+
+;---------------;
+; MISCELLANEOUS ;
+;---------------;
+
+fixed-center = true
+padding-left = 2
+padding-right = 2
+module-margin = 1.5
+separator = " | "
+#C O M F Y
+modules-center = titlew
+modules-left = mpdw
+modules-right = datew timew backlightw volumew batteryw
+
+tray-position = none
+;tray-detached = true
+
+
+[module/mpdw]
+type = internal/mpd
+
+label-offline = mpd is offline
+format-online = <icon-prev> <toggle> <icon-next> <label-song>
+format-offline = <label-offline>
+host = 127.0.0.1
+port = 6600
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 45
+label-song-ellipsis = true
+
+bar-progress-width = 10
+bar-progress-indicator = |
+bar-progress-fill = ─
+bar-progress-empty = ─
+
+[module/backlightw]
+type = internal/backlight
+enable-scroll=true
+; Use the following command to list available cards:
+; $ ls -1 /sys/class/backlight/
+card = intel_backlight
+
+format = <ramp> <label>
+
+label = %percentage%%
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+
+
+[module/titlew]
+type = internal/xwindow
+; Available tags:
+;   <label> (default)
+format = <label>
+format-padding = 4
+
+; Available tokens:
+;   %title%
+; Default: %title%
+label = %title%
+label-maxlen = 85
+
+; Used instead of label when there is no window title
+; Available tokens:
+;   None
+[module/timew]
+type = internal/date
+interval = 1.0
+
+date = %H:%M:%S
+
+[module/datew]
+
+type = internal/date
+
+date = %e %B - %A
+label = %date%
+
+
+[module/batteryw]
+type = internal/battery
+
+battery = BAT1
+
+poll-interval = 1
+
+full-at = 95
+
+label-discharging = %percentage%%
+label-charging = %percentage%%
+label-full = %percentage%%
+
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <ramp-capacity> <label-full>
+format-charging =  <label-charging>
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+[module/volumew]
+type = internal/pulseaudio
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+sink = alsa_output.pci-0000_00_1b.0.analog-stereo
+
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+; Default: true
+use-ui-max = true
+; Available tags:
+;   <label-volume> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-volume = <ramp-volume> <label-volume>
+
+; Available tags:
+;   <label-muted> (default)
+;   <ramp-volume>
+;   <bar-volume>
+;format-muted = <label-muted>
+
+; Available tokens:
+;   %percentage% (default)
+;label-volume = %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+label-muted =
+label-muted-foreground = #666
+
+; Only applies if <ramp-volume> is used
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-headphones-0 = 
+;PING SCRIPT
+;
+;
+

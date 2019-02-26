@@ -1,0 +1,9 @@
+#!/bin/bash
+discord
+nitrogen --restore
+dunst
+sh ~/Documents/dev/py/Threatron/pollingservice
+redshift -O 3100
+compton --inactive-dim 0.2 &
+xdo lower -N Polybar
+xinput --set-prop 9 'libinput Accel Speed' 1 &

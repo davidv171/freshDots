@@ -1,0 +1,2 @@
+#!/bin/bash
+bash ~/.config/herbstluftwm/loadstate < ~/.config/herbstluftwm/mystate

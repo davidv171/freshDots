@@ -1,0 +1,11 @@
+#!/bin/bash
+#vim: ft=sh
+#$1 = size of inner gaps
+#$2 location of file
+#step = by how much you increase or decrease gap size
+#slope shrink or grow to increase gap size
+sed -i "s/gaps inner.*/gaps inner $1/" $2 &&
+i3-msg reload &&
+i3-msg restart
+
+

@@ -1,0 +1,34 @@
+#!/bin/bash
+#vim: ft=bash
+cd "$(dirname "$0")" &&
+copypastas=$(readlink -f copypastas) &&
+source "$copypastas"
+if [[ $1 = "add" ]]
+then
+    if [[ -z ${!2} ]]
+	then
+	    echo "$2=\"$3\"" >> copypastas
+	else
+	    echo "$2 entry already exists,overwrite(yes/no)?"
+	    read -r overwrite
+	    if [[ ${overwrite:0:1} = "y" ]]
+	    then
+		if [[ $(sed -e "/^$2\\=\"*/ d" ~/.config/i3/copypastas) = 0 ]]
+		then
+		    echo "Overwritten"
+		else
+		    echo "Failed when overwriting"
+		    exit 1
+		fi
+	    else
+		echo "Cancelled by user"
+	    fi
+
+	fi
+    fi
+
+if [[ $1 = "get" ]]
+then
+    echo "${!2}" | xclip -i -selection clipboard
+fi
+

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+go run ~/go/src/github.com/davidv171/simpleWeather/currentTemp.go Maribor metric
+
