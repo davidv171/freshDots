@@ -22,6 +22,7 @@ hc keybind $Mod-Shift-r reload
 hc keybind $Mod-q close_or_remove
 hc keybind $Mod-Return spawn alacritty
 hc keybind $Mod-Shift-Return spawn sh "$HOME/.config/herbstluftwm/newFrameAndTerminal" right alacritty
+hc keybind $Mod-Shift-z spawn alacritty -e ranger
 hc keybind $Mod-Tab spawn rofi -show combi
 hc keybind XF86MonBrightnessUp spawn sh  "$HOME/.config/herbstluftwm/systemControl" brightnessUp 5
 hc keybind XF86MonBrightnessDown spawn sh "$HOME/.config/herbstluftwm/systemControl" brightnessDown 5
@@ -192,6 +193,7 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on focus
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off focus=on
 hc rule class="Firefox" windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on tag=dialog focus=on hook=dialogHook
 hc rule class="jetbrains-idea" manage=on focus=on tag=3
+hc rule class="Gpodder" tag=8
 
 hc set tree_style '╾│ ├└╼─┐'
 # CUSTOM RULES ________________
@@ -299,4 +301,6 @@ hc spawn compton --inactive-dim 0.4 &
 hc spawn xdo lower -N Polybar &
 hc spawn xinput --set-prop 9 'libinput Accel Speed' 1 &
 hc spawn nm-applet &
+hc spawn gpodder &
+hc add dialog
 #-----------------------------------

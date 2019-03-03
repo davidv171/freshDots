@@ -21,10 +21,10 @@ width=${mrect[2]}
 height=${mrect[3]}
 
 rect=(
-    $((width/3))
-    $((height/3))
-    $((${mrect[0]}+(width/4)))
-    $((${mrect[1]}+(height/4)))
+    $((width/2))
+    $((height/2))
+    $((${mrect[0]}+(width/3)))
+    $((${mrect[1]}+(height/3)))
 )
 
 hc add "$tag"
