@@ -24,6 +24,7 @@ hc keybind $Mod-Return spawn alacritty
 hc keybind $Mod-Shift-Return spawn sh "$HOME/.config/herbstluftwm/newFrameAndTerminal" right alacritty
 hc keybind $Mod-Shift-z spawn alacritty -e ranger
 hc keybind $Mod-Tab spawn rofi -show combi
+hc keybind $Mod-o spawn opera
 hc keybind XF86MonBrightnessUp spawn sh  "$HOME/.config/herbstluftwm/systemControl" brightnessUp 5
 hc keybind XF86MonBrightnessDown spawn sh "$HOME/.config/herbstluftwm/systemControl" brightnessDown 5
 hc keybind XF86AudioRaiseVolume spawn sh "$HOME/.config/herbstluftwm/systemControl" volumeUp 5
@@ -31,7 +32,7 @@ hc keybind XF86AudioRaiseVolume spawn sh "$HOME/.config/herbstluftwm/systemContr
 hc keybind XF86AudioLowerVolume spawn sh "$HOME/.config/herbstluftwm/systemControl" volumeDown 5
 hc keybind XF86AudioMute spawn amixer -D amixer -D pulse set Master 1+ toggle # Toggle muting
 hc keybind $Mod-b spawn firefox
-hc keybind $Mod-r spawn dolphin
+hc keybind $Mod-r spawn nautilus
 hc keybind $Mod-z spawn MellowPlayer
 hc keybind $Mod-Shift-x spawn ~/.config/i3/0x0 area
 hc keybind $Mod-Shift-c spawn ~/.config/i3/0x0 text
@@ -46,7 +47,9 @@ hc keybind $Mod-x move scratchpad
 hc keybind $Mod-Shift-v spawn pavucontrol
 hc keybind $Mod-Control-q spawn bash "$HOME/.config/herbstluftwm/killFrame"
 hc keybind $Mod-v spawn bash "$HOME/.config/herbstluftwm/dialogs"
+hc keybind $Mod-Control-v remove_monitor dialog
 hc keybind $Mod-m spawn bash "$HOME/.config/herbstluftwm/toggle_single_float.sh"
+hc keybind $Mod-Shift-m spawn bash "$HOME/.config/herbstluftwm/podcastsVLC"
 # basic movement
 # focusing clients
 hc keybind $Mod-Left  focus left
@@ -177,7 +180,7 @@ hc attr theme.active.inner_color '#f3f3f3'
 hc attr theme.active.outer_color '#f3f3f3'
 hc attr theme.background_color '#f3f3f3'
 
-hc set window_gap 10
+hc set window_gap 0
 hc set frame_padding 0
 hc set smart_window_surroundings 1
 hc set smart_frame_surroundings 1
@@ -191,10 +194,11 @@ hc unrule -F
 #hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off focus=on
-hc rule class="Firefox" windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on tag=dialog focus=on hook=dialogHook
+#hc rule class="Firefox" windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on tag=dialog focus=on hook=dialogHook
 hc rule class="jetbrains-idea" manage=on focus=on tag=3
 hc rule class="Gpodder" tag=8
-
+hc rule class="vlc" pseudotile=on
+hc floating monitor
 hc set tree_style '╾│ ├└╼─┐'
 # CUSTOM RULES ________________
 hc rule focus=on # normally focus new clients
@@ -278,15 +282,15 @@ lock_tag_to_monitor() {
 # lock the second tag to the monitor with index 0
 # Stream tag
 # Throwaway workspace
-lock_tag_to_monitor 2 1
+lock_tag_to_monitor 2 2
 lock_tag_to_monitor 1 0
 lock_tag_to_monitor 3 0
 lock_tag_to_monitor 4 0
 lock_tag_to_monitor 5 0
 lock_tag_to_monitor 6 0
-lock_tag_to_monitor 7 1
+lock_tag_to_monitor 7 2
 lock_tag_to_monitor 8 0
-lock_tag_to_monitor 9 2
+lock_tag_to_monitor 9 1
 lock_tag_to_monitor 0 0
 lock_tag_to_monitor 11 0
 lock_tag_to_monitor 12 0
@@ -296,11 +300,13 @@ hc set focus_follows_mouse 1
 hc spawn discord &
 hc spawn nitrogen --restore &
 hc spawn dunst &
-hc spawn ~/Documents/dev/py/Threatron/scripts/pollingservice 60
+hc spawn ~/Documents/sourceProjects/Theatron/scripts/pollingservice 60
 hc spawn compton --inactive-dim 0.4 &
 hc spawn xdo lower -N Polybar &
 hc spawn xinput --set-prop 9 'libinput Accel Speed' 1 &
 hc spawn nm-applet &
 hc spawn gpodder &
 hc add dialog
+hc spawn mpd
+hc spawn xset b off
 #-----------------------------------

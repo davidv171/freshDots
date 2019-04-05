@@ -6,7 +6,7 @@ choice=$(echo -e "$playlists\nPodcasts"  | rofi -dmenu)
 echo $choice
 if [[ $choice == "Podcasts" ]];then
     killall vlc
-    vlc "$HOME/Downloads/Music/Podcasts/"
+    vlc "$HOME/gPodder/Downloads/"
 fi
 if [[ -n $choice ]];then
     killall vlc
