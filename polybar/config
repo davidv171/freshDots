@@ -20,7 +20,6 @@ monitor-strict=true
 ;----------;
 
 
-
 monitor = eDP-1
 wm-restack = none
 override-redirect = false
@@ -317,8 +316,9 @@ monitor-strict=true
 
 
 
-bottom = false
-monitor = eDP-1-1
+modules-center = playerctl
+bottom = true
+monitor = eDP-1
 wm-restack = none
 override-redirect = false
 scroll-up = i3wm-wsnext
@@ -355,12 +355,8 @@ padding-right = 2
 module-margin = 1.5
 separator = " | "
 #C O M F Y
-modules-center = titlew
-modules-left = mpdw
-modules-right = datew timew backlightw volumew batteryw
-
-tray-position = none
-;tray-detached = true
+tray-position = left
+tray-detached = false
 
 
 [module/mpdw]
