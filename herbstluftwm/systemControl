@@ -17,7 +17,7 @@ case $1 in
 	amixer -D pulse set Master 1+ toggle
     ;;
     "brightnessUp"*)
-	xbacklight -inc $2
+	xbacklight -inc $2 && echo "Increasing"
     ;;
     "brightnessDown"*)
 	xbacklight -dec $2

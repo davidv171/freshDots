@@ -1,4 +1,38 @@
 #!/usr/bin/env bash
+#################################################################################################################################
+#                                                                                                                               #
+#   modded autostart written by zoe firi                                                                               — ▭ ✖    #
+#                                                                                                                               #
+#################################################################################################################################
+#                                                                                                                               #
+#   ,##,   ,##,     ####,  ,#####,        #####          ,##,     ,####,          ##,      ,#,  ,##       ####,   ,####,        #
+#   ####   ####    ####### ###  ##,     ###' '##      ,#######    ###########,   ,###      ###  ###    ########   ###########,  #
+#   #####  ####    ##,     ####  ##     ##' ,##'##   .####''##      '#########   ###'      ###  ###    #####'       '#########  #
+#    ###########   #####,  '######'      ##,##  ###  ###,            ###'       ,###       ###,  ###    ##, ,##,     ###'       # #    ###########   ##'##'   ######,       ##,  ,###  ##########,    ###'        ###'       '###  ###     #######    ###'        #
+#     #####  ####  ##       '##,'###,      ######     '#########    ###         ####,       ###,####      ####'     ###         #
+#      ####  '###   #####,   ###  '##,      ###           ,#####   ###'          #######,   ########,      ####    ###'         #
+#      '##'    ##    #####   '##   '#'                  #######'   ##'             ######    #####''#       '##    ##'          #
+#                                                                                                                               #
+#    ,##        ,##    ,####  ,##.   	                                                                        ,   ,           #
+#    ###   ,,   ###   ###### ######  	                                                          ,', ,', ,', ,' ',';           #
+#    ###  ,##   ###  ,##' #### '###  	                                                        ,'. ,'`,,', ,', ,'.,'           #
+#   ,###  ###   ###  ###  ###   ###	                                                          ,',','',,'  ,'. ,'`,'             #
+#   ###   ###  ###'  ##' ,###  ###                                                           ',`,,',,' `,' ,,'','   '           #
+#   ###   ####,###   ##  ###  ###                                                             ,'',,' ',' `,',,'|  ,             #
+#   #######'######   '#  ##'  '##  	                                                           ',', ,', ,',,'|'|                #
+#    '###'  '####                                                                              ', ,'' ,'','| '|| ,              #
+#                                                                          	                    ,' ,,'`.' ||\|||    '           #
+#           	                                                                               ', ,' ,'   || /||                #
+# 	                                                                                             ' '' ,   | /||| ,  '           #
+#                                                                                                '       ,''//,'                #
+#	                                                                                               ,   ,',//,'       '          #
+#                                                                         	                    .'__ ,',,,,'..,,'',, ,,._       #
+#                                                                                                                               #
+#################################################################################################################################
+
+
+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+ startup |
+# 					   	 V
 # this is a simple config for herbstluftwm
 hc() {
     herbstclient "$@"
@@ -18,9 +52,9 @@ Mod=Mod4
 #Mod=Mod4   # Use the super key as the main modifier
 # K E Y B I N D S
 # ---------------------------------------------------------------------------------------------------------------------------------------
-hc keybind $Mod-Control-r spawn redshift -O 3100
 hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
+hc keybind $Mod-Control-r redshift -O 3100
 hc keybind $Mod-q close_or_remove
 hc keybind $Mod-Return spawn alacritty -e fish
 hc keybind $Mod-Shift-Return spawn sh "$HOME/.config/herbstluftwm/newFrameAndTerminal" right alacritty
@@ -203,7 +237,7 @@ hc unrule -F
 #hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off focus=on
-#hc rule class="Firefox" windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on tag=dialog focus=on hook=dialogHook
+hc rule class="Chrome" windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on tag=dialog focus=on hook=dialogHook
 hc rule class="jetbrains-idea" manage=on focus=on tag=3
 hc rule class="Gpodder" tag=8
 hc rule class="vlc" pseudotile=on
@@ -319,4 +353,6 @@ hc spawn gpodder &
 hc add dialog
 hc spawn mpd
 hc spawn xset b off
+hc spawn bash ~/.config/herbstluftwm/wifi-connect
+hc spawn ~/Documents/yes/xflux -l 46.554649 -g 15.645881 -k 3100
 #-----------------------------------
