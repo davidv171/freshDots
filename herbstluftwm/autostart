@@ -71,9 +71,9 @@ hc keybind $Mod-b spawn google-chrome
 hc keybind $Mod-Shift-b spawn firefox -private
 hc keybind $Mod-r spawn nautilus
 hc keybind $Mod-z spawn MellowPlayer
-hc keybind $Mod-Shift-x spawn ~/.config/i3/0x0 area
-hc keybind $Mod-Shift-c spawn ~/.config/i3/0x0 text
-hc keybind $Mod-u spawn ~/.config/i3/0x0 recorda
+hc keybind $Mod-Shift-x spawn ~/.config/herbstluftwm/0x0 area
+hc keybind $Mod-Shift-c spawn ~/.config/herbstluftwm/0x0 text
+hc keybind $Mod-u spawn ~/.config/herbstluftwm/0x0 recorda
 hc keybind $Mod-Shift-t spawn ~/Documents/sourceProjects/Theatron/scripts/simplewatch
 hc keybind $Mod-n spawn polybar bspwm || killall polybar
 hc keybind $Mod-Control-w spawn stalonetray || killall stalonetray

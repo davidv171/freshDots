@@ -60,9 +60,20 @@ padding-right = 2
 module-margin = 1.5
 separator = " | "
 #C O M F Y
+
+
+
+
+
 modules-center = title
-modules-left = date time mellow
+modules-left = date time
 modules-right = go-weather backlight volume battery
+
+
+
+
+
+
 
 ;tray-position = left
 ;tray-detached = true
@@ -179,11 +190,11 @@ ramp-headphones-0 = 
 ;
 [module/go-weather]
 type = custom/script
-exec = ~/.config/i3/go-weather
+exec = ~/.config/herbstluftwm/go-weather
 interval = 300
 [module/monitor]
 type = custom/script
-exec = ~/.config/i3/currentMonitor
+exec = ~/.config/herbstluftwm/currentMonitor
 interval = 0.1
 format-padding = 4
 [module/info-pingrtt]

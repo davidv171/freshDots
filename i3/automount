@@ -1,2 +1,0 @@
-#!/bin/bash
-lsblk -lp | grep /dev/ | awk "{print $1}" | sudo mount "$-"

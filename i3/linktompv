@@ -1,5 +1,0 @@
-#!/bin/bash
-#Get text from clipboard and run it into mpv
-url="$(xclip -o -selection)"
-notify-send "Url in mpv" "$url"
-mpv $url
