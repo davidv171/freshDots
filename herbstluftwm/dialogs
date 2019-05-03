@@ -57,7 +57,19 @@ hide() {
     hc substitute M monitors.by-name."$monitor".my_prev_focus \
         and + compare monitors.focus.name = "$monitor" \
             + focus_monitor M
-
+    while true;
+    do
+        poll
+    done
+}
+poll() {
+    # poll the newly spawned dialog window/monitor for active windows
+    # if there are none, delete the monitor
+    layout="$(hc layout dialog)"
+    windows="$(echo "$layout" | grep x)"
+    if [ -z "$windows" ];then
+        hc remove_monitor dialog
+    fi
 }
 
 [ $exists = true ] && hide || show

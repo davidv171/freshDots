@@ -87,6 +87,7 @@ hc keybind $Mod-v spawn bash "$HOME/.config/herbstluftwm/dialogs"
 hc keybind $Mod-Control-v remove_monitor dialog
 hc keybind $Mod-m spawn bash "$HOME/.config/herbstluftwm/toggle_single_float.sh"
 hc keybind $Mod-Shift-m spawn bash "$HOME/.config/herbstluftwm/podcastsVLC"
+hc keybind $Mod-Shift-cedilla move_index 11
 # basic movement
 # focusing clients
 hc keybind $Mod-Left  focus left
@@ -214,7 +215,7 @@ hc attr theme.normal.color '#f3f3f3'
 hc attr theme.urgent.color red
 hc attr theme.inner_width 0
 hc attr theme.inner_color black
-hc attr theme.border_width 0
+hc attr theme.border_width 2
 hc attr theme.floating.border_width 2
 hc attr theme.floating.outer_width 2
 hc attr theme.floating.outer_color '#f3f3f3'
@@ -237,8 +238,10 @@ hc unrule -F
 #hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off focus=on
-hc rule class="Chrome" windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on tag=dialog focus=on hook=dialogHook
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on tag=dialog focus=on hook=dialogHook
+hc rule class="NetBeans IDE 8.2" windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=off
 hc rule class="jetbrains-idea" manage=on focus=on tag=3
+hc rule class="Emacs" manage=on focus=on tag=3
 hc rule class="Gpodder" tag=8
 hc rule class="vlc" pseudotile=on
 hc floating monitor
@@ -346,7 +349,7 @@ hc spawn discord &
 hc spawn nitrogen --restore &
 hc spawn dunst &
 hc spawn ~/Documents/sourceProjects/Theatron/scripts/pollingservice 60
-hc spawn compton --inactive-dim 0.4 &
+hc spawn compton --inactive-dim 0.1 &
 hc spawn xdo lower -N Polybar &
 hc spawn xinput --set-prop 9 'libinput Accel Speed' 1 &
 hc spawn nm-applet &
@@ -356,4 +359,5 @@ hc spawn mpd
 hc spawn xset b off
 hc spawn bash ~/.config/herbstluftwm/wifi-connect
 hc spawn ~/Documents/yes/xflux -l 46.554649 -g 15.645881 -k 3100
+hc spawn emacs --daemon
 #-----------------------------------
