@@ -1,0 +1,9 @@
+#!/bin/bash
+#GET PATH TO CURRENTLY ACTIVE TEX
+outputPDF="$HOME/Documents/texPDF/output.pdf"
+currentFile="$(cat $HOME/.config/currentTex)"
+# COMPILE IT 
+compile=$(pdflatex "$currentFile" "$outputPDF")
+# Launch it with zathura
+echo "$compile"
+zathura "$outputPDF"

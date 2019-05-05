@@ -1,0 +1,12 @@
+#!/bin/bash
+uuid="8b430421-49e6-4fac-9c14-cb9cfca9fa00"
+connect () {
+    output="$(nmcli c up uuid $uuid passwd-file ~/.config/wifi-pass)"
+}
+connect
+if [[ "$?" -gt 0 ]];then
+    echo "Retrying...."
+    connect
+else
+    echo "$output"
+fi

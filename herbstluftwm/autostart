@@ -88,6 +88,7 @@ hc keybind $Mod-Control-v remove_monitor dialog
 hc keybind $Mod-m spawn bash "$HOME/.config/herbstluftwm/toggle_single_float.sh"
 hc keybind $Mod-Shift-m spawn bash "$HOME/.config/herbstluftwm/podcastsVLC"
 hc keybind $Mod-Shift-cedilla move_index 11
+hc keybind $Mod-Shift-p texToPDF
 # basic movement
 # focusing clients
 hc keybind $Mod-Left  focus left
@@ -239,8 +240,12 @@ hc unrule -F
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on tag=dialog focus=on hook=dialogHook
+# Without reloading we dont get this thing poppin up
 hc rule class="NetBeans IDE 8.2" windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=off
 hc rule class="jetbrains-idea" manage=on focus=on tag=3
+hc rule class="jetbrains-idea" windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on tag=3
+hc rule class="jetbrains-goland" manage=on focus=on tag=3
+hc rule class="jetbrains-goland" windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on tag=3
 hc rule class="Emacs" manage=on focus=on tag=3
 hc rule class="Gpodder" tag=8
 hc rule class="vlc" pseudotile=on
@@ -355,6 +360,7 @@ hc spawn xinput --set-prop 9 'libinput Accel Speed' 1 &
 hc spawn nm-applet &
 hc spawn gpodder &
 hc add dialog
+hc spawn bash ~/.config/herbstluftwm/dialogs
 hc spawn mpd
 hc spawn xset b off
 hc spawn bash ~/.config/herbstluftwm/wifi-connect

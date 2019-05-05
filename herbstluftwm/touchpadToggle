@@ -1,0 +1,9 @@
+#!/bin/bash
+filepath="/var/tmp/tcs"
+#empty file -> touchpad is on(file gets removed on shutdown/reboot)
+status=$(cat "$filepath")
+if [[ $status == "on" || -s $filepath ]] ; then
+    xinput --disable 14 && echo "off" > "$filepath"
+else
+    xinput --enable 14 && echo "on" > "$filepath"
+fi
