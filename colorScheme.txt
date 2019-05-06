@@ -2,4 +2,5 @@ Colorscheme:
 Background(white): #f3f3f3
 Foreground(dark): #4d4d4c
 Red accent color: #df0000
+Emacs purple: #8c0D40
 Blue color in airline: #4271ae

@@ -67,10 +67,9 @@ hc keybind XF86AudioRaiseVolume spawn sh "$HOME/.config/herbstluftwm/systemContr
 # Lower Volume
 hc keybind XF86AudioLowerVolume spawn sh "$HOME/.config/herbstluftwm/systemControl" volumeDown 5
 hc keybind XF86AudioMute spawn amixer -D amixer -D pulse set Master 1+ toggle # Toggle muting
-hc keybind $Mod-b spawn google-chrome
+hc keybind $Mod-b spawn firefox
 hc keybind $Mod-Shift-b spawn firefox -private
 hc keybind $Mod-r spawn nautilus
-hc keybind $Mod-z spawn MellowPlayer
 hc keybind $Mod-Shift-x spawn ~/.config/herbstluftwm/0x0 area
 hc keybind $Mod-Shift-c spawn ~/.config/herbstluftwm/0x0 text
 hc keybind $Mod-u spawn ~/.config/herbstluftwm/0x0 recorda
@@ -78,6 +77,7 @@ hc keybind $Mod-Shift-t spawn ~/Documents/sourceProjects/Theatron/scripts/simple
 hc keybind $Mod-n spawn polybar bspwm || killall polybar
 hc keybind $Mod-Control-w spawn stalonetray || killall stalonetray
 hc keybind $Mod-g set_layout grid
+hc keybind $Mod-z set_layout max
 hc keybind $Mod-a cycle_layout +1 horizontal vertical
 hc keybind $Mod-y spawn bash "$HOME/.config/herbstluftwm/dropdown"
 hc keybind $Mod-x move scratchpad

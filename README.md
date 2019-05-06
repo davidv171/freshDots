@@ -7,3 +7,6 @@ I'm available on discord, and github issues whenever, if you happen to stumble u
 ## DEMOS:
 ![Imgur Demo Video](https://imgur.com/WjXgTVf)
 ![ RICER BOIS](https://imgur.com/oQzewDw)
+
+If demo no work we hecked bois. Imagine a white theme though and there's all
+these pretty dropdowns and dialogs.

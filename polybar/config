@@ -295,13 +295,11 @@ type = internal/xwindow
 ;   <label> (default)
 format = <label>
 format-padding = 4
-
 ; Available tokens:
 ;   %title%
 ; Default: %title%
 label = %title%
 label-maxlen = 85
-
 ; Used instead of label when there is no window title
 ; Available tokens:
 ;   None
@@ -414,7 +412,6 @@ type = internal/xwindow
 ;   <label> (default)
 format = <label>
 format-padding = 4
-
 ; Available tokens:
 ;   %title%
 ; Default: %title%
