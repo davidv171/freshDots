@@ -241,7 +241,7 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on focus
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on tag=dialog focus=on hook=dialogHook
 # Without reloading we dont get this thing poppin up
-hc rule class="NetBeans IDE 8.2" windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=off
+hc rule class="NetBeans IDE 8.2" windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on
 hc rule class="jetbrains-idea" manage=on focus=on tag=3
 hc rule class="jetbrains-idea" windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on tag=3
 hc rule class="jetbrains-goland" manage=on focus=on tag=3
@@ -350,7 +350,6 @@ lock_tag_to_monitor 12 0
 lock_tag_to_monitor 13 0
 # AUTO START ----------------------------
 hc set focus_follows_mouse 1
-hc spawn discord &
 hc spawn nitrogen --restore &
 hc spawn dunst &
 hc spawn ~/Documents/sourceProjects/Theatron/scripts/pollingservice 60
@@ -363,7 +362,6 @@ hc add dialog
 hc spawn bash ~/.config/herbstluftwm/dialogs
 hc spawn mpd
 hc spawn xset b off
-hc spawn bash ~/.config/herbstluftwm/wifi-connect
+hc spawn ~/.config/herbstluftwm/wifi-connect.lua
 hc spawn ~/Documents/yes/xflux -l 46.554649 -g 15.645881 -k 3100
-hc spawn emacs --daemon
 #-----------------------------------
