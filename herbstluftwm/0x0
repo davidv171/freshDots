@@ -9,7 +9,7 @@ case $1 in
     "area"*)
 	maim -u ~/Screenshots/Newest/newest.png -s &&
 	cd ~/Screenshots/Newest &&
-	curl -F'file=@newest.png' https://0x0.st | xclip -i -selection clipboard &&
+	curl -F'file=@newest.png' https://0x0.st | xclip -i -selection clipboard && xdg-open "$(xclip -o -selection clipboard)" &&
 	mv ~/Screenshots/Newest/newest.png ~/Screenshots/"area $(date +%Y-%m-%dT%H:%M:%SZ).png" &&
 	notify-send "Area Screenshot in clipboard"
     ;;
@@ -44,20 +44,9 @@ case $1 in
 	notify-send "Delayed area in clipboard"
     ;;
     "recorda"*)
-	running=$(ps -a | grep -c ffmpeg)
-	echo $running
-	if [[ $running == "0" ]];then
-	    slop=$(slop -q -f '%x %y %w %h')
-	    [[ $slop == "" ]] && exit 1
-	    set $slop
-	    name="$HOME/Screenshots/Newest/newest.mp4"
-	    ffmpeg -y -f x11grab -s ${3}x${4} -r 30 -i :0.0+${1},${2} -qscale 0 "$name" > /dev/null 2>&1 & disown
-	else
-	    killall ffmpeg
-	    sleep 2
-	    cd ~/Screenshots/Newest/
-	    curl -F 'file=@newest.mp4' 0x0.st | xclip -i -selection clipboard && notify-send "0x0" "Recording in 0x0" &&mv ~/Screenshots/Newest/newest.mp4 ~/Screenshots/"record-$(date +%Y-%m-%dT%H:%M:%SZ).mp4"
-	fi
+            giph -s | curl -F 'file=@-' 0x0.st | xclip -i -selection clipboard
     ;;
-esac
-
+    "endrecord"*)
+        killall -INT -g giph
+    ;;
+    esac

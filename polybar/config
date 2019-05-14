@@ -188,6 +188,11 @@ ramp-headphones-0 = 
 ;PING SCRIPT
 ;
 ;
+[module/touchpad]
+type = custom/script
+exec = ~/.config/herbstluftwm/touchpadStatus
+click-left = touchpadToggle
+interval = 1
 [module/go-weather]
 type = custom/script
 exec = ~/.config/herbstluftwm/go-weather
