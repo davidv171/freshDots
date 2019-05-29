@@ -6,12 +6,12 @@
 ;
 ;------------;
 width = 100%
-height = 12
+height = 25
 offset-y = 0
 offset-x = 0
 bottom = false
-border-top-size = 10
-border-bottom-size = 10
+border-top-size = 0
+border-bottom-size = 0
 border-right-size = 10
 border-left-size=10
 monitor-strict=true
@@ -23,8 +23,8 @@ monitor-strict=true
 monitor = eDP-1
 wm-restack = none
 override-redirect = false
-scroll-up = bspwm-wsnext
-scroll-down = bspwm-wsprev
+scroll-up = herbstclient use_index +1
+scroll-down = herbstclient use_index -1
 ;-------;
 ; FONTS ;
 ;-------;
@@ -58,7 +58,7 @@ fixed-center = true
 padding-left = 2
 padding-right = 2
 module-margin = 1.5
-separator = " | "
+#separator = " | "
 #C O M F Y
 
 
@@ -66,8 +66,8 @@ separator = " | "
 
 
 modules-center = title
-modules-left = date time
-modules-right = go-weather backlight volume battery
+modules-left = date time memory
+modules-right = go-weather volume battery
 
 
 
@@ -117,21 +117,23 @@ label-visible-padding = 4
 ;label-unfocused = 
 [module/time]
 type = internal/date
+format-foreground = #df0000
+format-background = #d9ddd9
+format-padding = 4
 interval = 1.0
-
-date = %H:%M:%S
+date =  %H:%M:%S
 [module/date]
 type = internal/date
 
 date = %e %B - %A
-label = %date%
+label = %date%
 
 
 [module/battery]
 type = internal/battery
-
 battery = BAT0
-
+format-charging-padding = 4
+format-discharing-padding = 4
 poll-interval = 1
 
 full-at = 95
@@ -155,16 +157,21 @@ type = internal/pulseaudio
 ; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
 ; If not, uses default sink
 sink = alsa_output.pci-0000_00_1b.0.analog-stereo
-
 ; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
 ; Default: true
 use-ui-max = true
+format-volume-padding = 4
+format-muted-padding = 4
+format-muted-background = #d9ddd9
+format-muted-foreground = #df0000
+format-volume-background = #d9ddd9
+format-volume-foreground = #df0000
 ; Available tags:
 ;   <label-volume> (default)
 ;   <ramp-volume>
 ;   <bar-volume>
 format-volume = <ramp-volume> <label-volume>
-
+format-foreground = #df0000
 ; Available tags:
 ;   <label-muted> (default)
 ;   <ramp-volume>
@@ -188,6 +195,12 @@ ramp-headphones-0 = 
 ;PING SCRIPT
 ;
 ;
+
+[module/updates]
+type = custom/script
+exec = ~/.config/herbstluftwm/updates
+interval = 10800
+
 [module/touchpad]
 type = custom/script
 exec = ~/.config/herbstluftwm/touchpadStatus
@@ -251,6 +264,7 @@ label = %percentage%%
 ramp-0 = 
 ramp-1 = 
 ramp-2 = 
+padding = 4
 [module/wlan]
 type = internal/network
 
@@ -270,7 +284,7 @@ label =  %percentage%%
 
 [module/memory]
 type = internal/memory
-label =  %gb_used%
+label =  %gb_free% / %gb_total%
 
 
 
@@ -367,7 +381,6 @@ fixed-center = true
 padding-left = 2
 padding-right = 2
 module-margin = 1.5
-separator = " | "
 #C O M F Y
 tray-position = left
 tray-detached = false
@@ -431,6 +444,7 @@ type = internal/date
 interval = 1.0
 foreground = #f3f3f3
 date = %H:%M:%S
+use-ui-max = true
 
 [module/datew]
 
@@ -443,6 +457,7 @@ label = %date%
 [module/batteryw]
 type = internal/battery
 
+format-padding = 4
 battery = BAT1
 
 poll-interval = 1
@@ -492,6 +507,7 @@ format-volume = <ramp-volume> <label-volume>
 ;   %percentage% (default)
 label-muted =
 label-muted-foreground = #666
+
 
 ; Only applies if <ramp-volume> is used
 ramp-volume-0 = 

@@ -3,12 +3,13 @@
 function testconn()
 	local handler = io.popen("ping -c 3 -i 0.5 8.8.8.8")
 	local response = handler:read("*a")
-	print("RESPONSE:" .. response)
-	if string.find(response,"Unreachable") then
-		print("Unreachable")
+	print("RESPONSE: ".. response)
+	if string.find(response,"time") then
+		os.exit(0)
+	else
 		return false
 	end
-	os.exit(0)
+
 end
 function wificonn (uuid)
 	local command = "nmcli c up uuid " .. uuid .. " passwd-file ~/.config/wifi-pass"
@@ -18,8 +19,14 @@ function wificonn (uuid)
 	return result
 end
 	-- Check if we're connected to the internet --
+print("Init...")
 if testconn() == false then
+	local place = os.getenv("place")
 	local uuid = "8b430421-49e6-4fac-9c14-cb9cfca9fa00"
+	if place == "work" then
+	    uuid = "f21a4603-41d5-4fa9-9656-a8bad25b7cef"
+	end
+
 	print("Trying to connect")
 	local ind = 0
 	while ind < 4 do

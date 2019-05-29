@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Set the window to floating mode first because it's kinda worthless without this
+herbstclient floating on
+
 # maximize a window in floating mode
 # un-maximization is not supported yet.
 

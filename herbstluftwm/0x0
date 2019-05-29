@@ -7,11 +7,17 @@
 #delaya = screenshot area after a delay, needs a second argument, that decides on the delay
 case $1 in
     "area"*)
-	maim -u ~/Screenshots/Newest/newest.png -s &&
-	cd ~/Screenshots/Newest &&
-	curl -F'file=@newest.png' https://0x0.st | xclip -i -selection clipboard && xdg-open "$(xclip -o -selection clipboard)" &&
-	mv ~/Screenshots/Newest/newest.png ~/Screenshots/"area $(date +%Y-%m-%dT%H:%M:%SZ).png" &&
-	notify-send "Area Screenshot in clipboard"
+        maim -u ~/Screenshots/Newest/newest.png -s &&
+        cd ~/Screenshots/Newest &&
+        curl -F'file=@newest.png' https://0x0.st | xclip -i -selection clipboard &&
+        mv ~/Screenshots/Newest/newest.png ~/Screenshots/"area $(date +%Y-%m-%dT%H:%M:%SZ).png" &&
+        notify-send "Area Screenshot in clipboard"
+    ;;
+    "direct"*)
+        maim -u -s| xclip -sel c -t image/png
+    ;;
+    "bloat"*)
+        flameshot gui
     ;;
     "window"*)
 	maim  ~/Screenshots/Newest/window.png -i "$(xdotool getactivewindow)" &&
@@ -21,32 +27,40 @@ case $1 in
         notify-send "Window in clipboard"
     ;;
     "screen"*)
-	maim ~/Screenshots/Newest/screen.png &&
-	cd ~/Screenshots/Newest &&
-	curl -F 'file=@screen.png' https://0x0.st | xclip -i -selection clipboard &&
-	mv ~/Screenshots/Newest/screen.png ~/Screenshots/"screen $(date +%Y-%m-%dT%H:%M:%SZ).png" &&
-	notify-send "Screen in clipboard"
+        maim ~/Screenshots/Newest/screen.png &&
+        cd ~/Screenshots/Newest &&
+        curl -F 'file=@screen.png' https://0x0.st | xclip -i -selection clipboard &&
+        mv ~/Screenshots/Newest/screen.png ~/Screenshots/"screen $(date +%Y-%m-%dT%H:%M:%SZ).png" &&
+        notify-send "Screen in clipboard"
 	;;
     "text"*)
-	xclip -o -selection  | curl -F file=@'-' 0x0.st | xclip -i -selection clipboard &&
-	notify-send "0x0" "Text in 0x0"
+        xclip -o -selection  | curl -F file=@'-' 0x0.st | xclip -i -selection clipboard &&
+        notify-send "0x0" "Text in 0x0"
     ;;
     "delaya"*)
-	delay=$2
-	if [[ -z $2 ]]
-	then
-	    delay=3
-	fi
-	maim -s -d "$delay" ~/Screenshots/Newest/delaya.png &&
-	cd ~/Screenshots/Newest &&
-	curl -F 'file=@delaya.png' 0x0.st | xclip -i -selection clipboard &&
-	mv ~/Screenshots/Newest/delaya.png ~/Screenshots/"delayarea $(date +%Y-%m-%dT%H:%M:%SZ).png" &&
-	notify-send "Delayed area in clipboard"
+        delay=$2
+        if [[ -z $2 ]]
+        then
+            delay=3
+        fi
+        maim -s -d "$delay" ~/Screenshots/Newest/delaya.png &&
+        cd ~/Screenshots/Newest &&
+        curl -F 'file=@delaya.png' 0x0.st | xclip -i -selection clipboard &&
+        mv ~/Screenshots/Newest/delaya.png ~/Screenshots/"delayarea $(date +%Y-%m-%dT%H:%M:%SZ).png" &&
+        notify-send "Delayed area in clipboard"
     ;;
     "recorda"*)
-            giph -s | curl -F 'file=@-' 0x0.st | xclip -i -selection clipboard
-    ;;
-    "endrecord"*)
-        killall -INT -g giph
-    ;;
+#
+# http://github.com/mitchweaver/bin
+#
+# Records a selected rectangle with ffmpeg.
+#
+        [ $# -eq 0 ] &&
+            video_path="${HOME}/var/videos/captures/record-$(date '+%b_%d-%H:%M')" ||
+            video_path=${1}
+
+        set $(slop -q -o -f '%x %y %w %h')
+        ffmpeg -y -f x11grab -s ${3}x${4} \
+            -r 30 -i :1.0+${1},${2} -qscale 0 \
+            ${video_path}.mp4
     esac

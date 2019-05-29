@@ -70,7 +70,9 @@ hc keybind $Mod-b spawn firefox
 hc keybind $Mod-Shift-b spawn firefox -private
 hc keybind $Mod-r spawn nautilus
 hc keybind $Mod-Shift-x spawn ~/.config/herbstluftwm/0x0 area
-hc keybind $Mod-Shift-c spawn ~/.config/herbstluftwm/0x0 text
+hc keybind $Mod-Control-x spawn ~/.config/herbstluftwm/0x0 direct
+hc keybind $Mod-x spawn ~/.config/herbstluftwm/0x0 bloat
+hc keybind $Mod-Control-c spawn ~/.config/herbstluftwm/0x0 text
 hc keybind $Mod-u spawn ~/.config/herbstluftwm/0x0 recorda
 hc keybind $Mod-Shift-t spawn ~/Documents/sourceProjects/Theatron/scripts/simplewatch
 hc keybind $Mod-n spawn polybar bspwm || killall polybar
@@ -80,15 +82,16 @@ hc keybind $Mod-z set_layout max
 hc keybind $Mod-Shift-z spawn bash "$HOME/.config/herbstluftwm/maximize"
 hc keybind $Mod-a cycle_layout +1 horizontal vertical
 hc keybind $Mod-y spawn bash "$HOME/.config/herbstluftwm/dropdown"
-hc keybind $Mod-x move scratchpad
+hc keybind $Mod-Control-s move scratchpad
 hc keybind $Mod-Shift-v spawn pavucontrol
 hc keybind $Mod-Control-q spawn bash "$HOME/.config/herbstluftwm/killFrame"
 hc keybind $Mod-v spawn bash "$HOME/.config/herbstluftwm/dialogs"
 hc keybind $Mod-Control-v remove_monitor dialog
 hc keybind $Mod-m spawn bash "$HOME/.config/herbstluftwm/float-maximize"
-hc keybind $Mod-Shift-m spawn bash "$HOME/.config/herbstluftwm/podcastsVLC"
+hc keybind $Mod-Shift-m spawn bash "$HOME/.config/herbstluftwm/toggle_single_float.sh"
 hc keybind $Mod-Shift-cedilla move_index 11
 hc keybind $Mod-Shift-p texToPDF
+hc keybind $Mod-a hc use 7
 hc keybind $Mod-Shift-e spawn emacsclient -ca "" &
 # basic movement
 # focusing clients
@@ -142,8 +145,8 @@ hc keybind $Mod-Control-Right   resize right +$resizestep
 
 # ---------------------------------------------------------------------------------------------------------------------------------------
 # tags
-tag_names=( {1..9} )
-tag_keys=( {1..9} 0 )
+tag_names=( {1..9} 0 cedilla s d )
+tag_keys=( {1..9} 0 cedilla s d )
 
 hc rename default "${tag_names[0]}" || true
 for i in ${!tag_names[@]} ; do
@@ -193,8 +196,9 @@ hc mousebind $Mod-Button2 zoom
 hc mousebind $Mod-Button3 resize
 
 # focus
-hc keybind $Mod-BackSpace   cycle_monitor
-hc keybind $Mod-c cycle
+hc keybind $Mod-Control-c use_previous
+hc keybind $Mod-Shift-c   cycle_monitor
+hc keybind $Mod-c cycle_all
 hc keybind $Mod-i jumpto urgent
 
 # theme
@@ -242,22 +246,16 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on focus
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on focus=on
 # Without reloading we dont get this thing poppin up
-hc rule class="NetBeans IDE 8.2" windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on
-hc rule class="jetbrains-idea" manage=on focus=on tag=3
-hc rule class="jetbrains-idea" windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on tag=3
-#hc rule class="jetbrains-goland" manage=on focus=on tag=3
-#hc rule class="jetbrains-goland" windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on tag=3
 hc rule class="Emacs" manage=on focus=on
 hc rule class="Gpodder" tag=8
 hc rule class="vlc" pseudotile=on
-hc floating monitor
 hc set tree_style '╾│ ├└╼─┐'
 # CUSTOM RULES ________________
 hc rule focus=on # normally focus new clients
 hc rule class="mpv" tag=9
 hc rule class="discord" tag=4
 hc rule class="scratch" tag=scratchpad
-hc rule class="code" tag=3
+hc rule class="tc" tag=4
 # ---------------------------------------------------------------------------------------------------------------------------------------
 
 # STUFF TO DO
@@ -278,7 +276,7 @@ hc unlock
 {
     pids=( )
     # reserve some space for the panel on monitor 0
-    hc pad 0 31
+    hc pad 0 25
     # start the panel itself and remember its pid
     polybar bspwm &
     pids+=( $! )
@@ -336,6 +334,7 @@ lock_tag_to_monitor() {
 # lock the second tag to the monitor with index 0
 # Stream tag
 # Throwaway workspace
+
 lock_tag_to_monitor 2 2
 lock_tag_to_monitor 1 0
 lock_tag_to_monitor 3 0
@@ -345,10 +344,16 @@ lock_tag_to_monitor 6 0
 lock_tag_to_monitor 7 2
 lock_tag_to_monitor 8 0
 lock_tag_to_monitor 9 1
-lock_tag_to_monitor 0 0
+lock_tag_to_monitor 0 1
 lock_tag_to_monitor 11 0
 lock_tag_to_monitor 12 0
 lock_tag_to_monitor 13 0
+lock_tag_to_monitor cedilla 1
+lock_tag_to_monitor s 0
+lock_tag_to_monitor d 0
+if [[ $(hc getenv place) == "work" ]];then
+    lock_tag_to_monitor 7 1
+fi
 #
 # AUTO START ----------------------------
 if hc silent new_attr bool my_not_first_autostart ; then
@@ -366,11 +371,10 @@ if hc silent new_attr bool my_not_first_autostart ; then
     hc spawn firefox &
     hc spawn emacs --daemon
     hc spawn ~/.config/herbstluftwm/wifi-connect.lua
+    hc spawn google-chrome-stable --app=https://deezer.com &
+    hc spawn tc &
     hc spawn ~/Documents/yes/xflux -l 46.554649 -g 15.645881 -k 3100
-    hc spawn google-chrome-stable --app=https://deezer.com
-    hc spawn google-chrome-stable --app=https://discordapp.com/channels/@me
 fi
-hc spawn bash ~/.config/herbstluftwm/dialogs &
 hc spawn bash ~/.config/herbstluftwm/dialogs &
 
 #-----------------------------------
