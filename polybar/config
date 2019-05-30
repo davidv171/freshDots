@@ -67,7 +67,7 @@ module-margin = 1.5
 
 modules-center = title
 modules-left = date time memory
-modules-right = go-weather volume battery
+modules-right = wlan volume battery
 
 
 
@@ -127,7 +127,24 @@ type = internal/date
 
 date = %e %B - %A
 label = %date%
+[module/ewmh]
+type = internal/xworkspaces
 
+; Only show workspaces defined on the same output as the bar
+;
+; Useful if you want to show monitor specific workspaces
+; on different bars
+;
+; Default: false
+pin-workspaces = true
+
+; Create click handler used to focus desktop
+; Default: true
+enable-click = false
+
+; Create scroll handlers used to cycle desktops
+; Default: true
+enable-scroll = false
 
 [module/battery]
 type = internal/battery
@@ -268,10 +285,10 @@ padding = 4
 [module/wlan]
 type = internal/network
 
+click-left = nmcli-rofi
 interface = wlp7s0
 format-background = #1D2021
 label-foreground = #d8dee9
-
 interval = 5
 
 label-connected =  %essid%
@@ -294,8 +311,6 @@ format = <label-toggle> <menu>
 ;format-underline = ${colors.white}
 format-padding = 1
 ;format-margin = 1
-format-background = #1D2021
-format-foreground = #d8dee9
 ;format-background = ${colors.black}
 
 menu-0-0 = " shutdown "

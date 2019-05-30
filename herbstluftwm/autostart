@@ -59,6 +59,7 @@ hc keybind $Mod-q close_or_remove
 hc keybind $Mod-Return spawn alacritty
 hc keybind $Mod-Shift-Return spawn sh "$HOME/.config/herbstluftwm/newFrameAndTerminal" right alacritty
 hc keybind $Mod-Tab spawn rofi -show combi
+hc keybind $Mod-Shift-Tab spawn rofi -show drun
 hc keybind $Mod-o spawn opera
 hc keybind XF86MonBrightnessUp spawn sh  "$HOME/.config/herbstluftwm/systemControl" brightnessUp 5
 hc keybind XF86MonBrightnessDown spawn sh "$HOME/.config/herbstluftwm/systemControl" brightnessDown 5
@@ -89,7 +90,7 @@ hc keybind $Mod-v spawn bash "$HOME/.config/herbstluftwm/dialogs"
 hc keybind $Mod-Control-v remove_monitor dialog
 hc keybind $Mod-m spawn bash "$HOME/.config/herbstluftwm/float-maximize"
 hc keybind $Mod-Shift-m spawn bash "$HOME/.config/herbstluftwm/toggle_single_float.sh"
-hc keybind $Mod-Shift-cedilla move_index 11
+hc keybind $Mod-Shift-cedilla move_index cedilla
 hc keybind $Mod-Shift-p texToPDF
 hc keybind $Mod-a hc use 7
 hc keybind $Mod-Shift-e spawn emacsclient -ca "" &
@@ -163,7 +164,7 @@ hc add 11
 hc add 12
 hc add 13
 hc keybind $Mod-0 use 0
-hc keybind cedilla use 11
+hc keybind cedilla use cedilla
 hc keybind $Mod-s use 6
 hc keybind $Mod-Shift-s move 6
 hc keybind $Mod-d use 7
@@ -199,6 +200,7 @@ hc mousebind $Mod-Button3 resize
 hc keybind $Mod-Control-c use_previous
 hc keybind $Mod-Shift-c   cycle_monitor
 hc keybind $Mod-c cycle_all
+hc keybind $Mod-less use_previous
 hc keybind $Mod-i jumpto urgent
 
 # theme
