@@ -23,8 +23,8 @@ monitor-strict=true
 monitor = eDP-1
 wm-restack = none
 override-redirect = false
-scroll-up = herbstclient use_index +1
-scroll-down = herbstclient use_index -1
+scroll-up = mi u
+scroll-down = mi d
 ;-------;
 ; FONTS ;
 ;-------;
@@ -67,7 +67,7 @@ module-margin = 1.5
 
 modules-center = title
 modules-left = date time memory
-modules-right = wlan volume battery
+modules-right = go-weather volume battery
 
 
 

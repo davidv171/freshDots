@@ -46,6 +46,7 @@ hc keyunbind --all
 hc spawn bash "$HOME/.config/herbstluftwm/dialogListener"
 hc set default_frame_layout 3
 hc spawn xset b off
+terminal="termite"
 # keybindings
 # if you have a super key you will be much happier with Mod set to Mod4
 Mod=Mod4
@@ -56,8 +57,8 @@ hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Control-r redshift -O 3100
 hc keybind $Mod-q close_or_remove
-hc keybind $Mod-Return spawn alacritty
-hc keybind $Mod-Shift-Return spawn sh "$HOME/.config/herbstluftwm/newFrameAndTerminal" right alacritty
+hc keybind $Mod-Return spawn "$terminal"
+hc keybind $Mod-Shift-Return spawn sh "$HOME/.config/herbstluftwm/newFrameAndTerminal" right "$terminal"
 hc keybind $Mod-Tab spawn rofi -show combi
 hc keybind $Mod-Shift-Tab spawn rofi -show drun
 hc keybind $Mod-o spawn opera
@@ -81,7 +82,6 @@ hc keybind $Mod-Control-w spawn stalonetray || killall stalonetray
 hc keybind $Mod-g set_layout grid
 hc keybind $Mod-z set_layout max
 hc keybind $Mod-Shift-z spawn bash "$HOME/.config/herbstluftwm/maximize"
-hc keybind $Mod-a cycle_layout +1 horizontal vertical
 hc keybind $Mod-y spawn bash "$HOME/.config/herbstluftwm/dropdown"
 hc keybind $Mod-Control-s move scratchpad
 hc keybind $Mod-Shift-v spawn pavucontrol
@@ -92,7 +92,7 @@ hc keybind $Mod-m spawn bash "$HOME/.config/herbstluftwm/float-maximize"
 hc keybind $Mod-Shift-m spawn bash "$HOME/.config/herbstluftwm/toggle_single_float.sh"
 hc keybind $Mod-Shift-cedilla move_index cedilla
 hc keybind $Mod-Shift-p texToPDF
-hc keybind $Mod-a hc use 7
+hc keybind $Mod-a use 4
 hc keybind $Mod-Shift-e spawn emacsclient -ca "" &
 # basic movement
 # focusing clients
@@ -105,26 +105,25 @@ hc keybind $Mod-j     focus down
 hc keybind $Mod-k     focus up
 hc keybind $Mod-l     focus right
 
-# moving clients
-hc keybind $Mod-Shift-Left  shift left
-hc keybind $Mod-Shift-Down  shift down
-hc keybind $Mod-Shift-Up    shift up
-hc keybind $Mod-Shift-Right shift right
-hc keybind $Mod-Shift-h     shift left
-hc keybind $Mod-Shift-j     shift down
-hc keybind $Mod-Shift-k     shift up
-hc keybind $Mod-Shift-l     shift right
-
+# moving clients through monitors
+hc keybind $Mod-Shift-h or / shift left / \
+    chain , lock , shift_to_monitor -l , focus_monitor -l , unlock
+hc keybind $Mod-Shift-j or / shift down / \
+    chain , lock , shift_to_monitor -d , focus_monitor -d , unlock
+hc keybind $Mod-Shift-k or / shift up / \
+    chain , lock , shift_to_monitor -u , focus_monitor -u , unlock
+hc keybind $Mod-Shift-l or / shift right / \
+chain , lock , shift_to_monitor -r , focus_monitor -r , unlock
 # splitting frames
 # create an empty frame at the specified direction
 hc keybind $Mod-cacute       split   bottom  0.5
 hc keybind $Mod-zcaron       split   right   0.5
 hc keybind $Mod-ccaron	split	left	0.5
 hc keybind $Mod-scaron	split	top	0.5
-hc keybind $Mod-Shift-cacute spawn sh "$HOME/.config/herbstluftwm/newFrameAndTerminal" bottom alacritty
-hc keybind $Mod-Shift-zcaron spawn sh "$HOME/.config/herbstluftwm/newFrameAndTerminal" right alacritty
-hc keybind $Mod-Shift-ccaron spawn sh "$HOME/.config/herbstluftwm/newFrameAndTerminal" left alacritty
-hc keybind $Mod-Shift-scaron spawn sh "$HOME/.config/herbstluftwm/newFrameAndTerminal" top alacritty
+hc keybind $Mod-Shift-cacute spawn sh "$HOME/.config/herbstluftwm/newFrameAndTerminal" bottom "$terminal"
+hc keybind $Mod-Shift-zcaron spawn sh "$HOME/.config/herbstluftwm/newFrameAndTerminal" right "$terminal"
+hc keybind $Mod-Shift-ccaron spawn sh "$HOME/.config/herbstluftwm/newFrameAndTerminal" left "$terminal"
+hc keybind $Mod-Shift-scaron spawn sh "$HOME/.config/herbstluftwm/newFrameAndTerminal" top "$terminal"
 hc keybind $Mod-Control-scaron split	top	0.8
 hc keybind $Mod-Control-cacute split 	bottom	0.8
 hc keybind $Mod-Control-zcaron split	right	0.8
@@ -240,7 +239,7 @@ hc set mouse_recenter_gap 1
 # rules
 # ---------------------------------------------------------------------------------------------------------------------------------------
 hc unrule -F
-#hc rule class=XTerm tag=3 # move all alacrittys to tag 3
+#hc rule class=XTerm tag=3 # move all "$terminal"s to tag 3
 #hc rule focus=off # normally do not focus new clients
 # give focus to most common terminals
 #hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
@@ -259,8 +258,7 @@ hc rule class="discord" tag=4
 hc rule class="scratch" tag=scratchpad
 hc rule class="tc" tag=4
 # ---------------------------------------------------------------------------------------------------------------------------------------
-
-# STUFF TO DO
+hc spawn monitorsetup
 hc focus_crosses_monitor_boundaries 1
 hc set smart_frame_surroundings 1
 hc set smart_window_surroundings 1
@@ -352,9 +350,13 @@ lock_tag_to_monitor 12 0
 lock_tag_to_monitor 13 0
 lock_tag_to_monitor cedilla 1
 lock_tag_to_monitor s 0
-lock_tag_to_monitor d 0
+lock_tag_to_monitor d 2
+lock_tag_to_monitor a 0
 if [[ $(hc getenv place) == "work" ]];then
     lock_tag_to_monitor 7 1
+    lock_tag_to_monitor 2 0
+    lock_tag_to_monitor s 0
+    lock_tag_to_monitor d 1
 fi
 #
 # AUTO START ----------------------------
@@ -373,7 +375,7 @@ if hc silent new_attr bool my_not_first_autostart ; then
     hc spawn firefox &
     hc spawn emacs --daemon
     hc spawn ~/.config/herbstluftwm/wifi-connect.lua
-    hc spawn google-chrome-stable --app=https://deezer.com &
+    hc spawn google-chrome-stable --app=https://listen.tidal.com &
     hc spawn tc &
     hc spawn ~/Documents/yes/xflux -l 46.554649 -g 15.645881 -k 3100
 fi
