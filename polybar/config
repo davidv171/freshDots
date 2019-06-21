@@ -65,7 +65,7 @@ module-margin = 1.5
 
 
 
-modules-center = title
+modules-center = title focusedw
 modules-left = date time memory
 modules-right = go-weather volume battery
 
@@ -324,19 +324,14 @@ label-open = 
 label-close =
 
 [module/title]
-type = internal/xwindow
-; Available tags:
-;   <label> (default)
-format = <label>
-format-padding = 4
-; Available tokens:
-;   %title%
-; Default: %title%
-label = %title%
-label-maxlen = 85
-; Used instead of label when there is no window title
-; Available tokens:
-;   None
+type = custom/script
+exec = ~/.config/herbstluftwm/getc
+interval = 0.1
+[module/focusedw]
+type = custom/script
+exec = ~/.config/herbstluftwm/getws
+interval = 0.1
+
 [bar/white2]
 
 ;------------;
@@ -359,7 +354,7 @@ monitor-strict=true
 
 
 
-modules-center = playerctl
+modules-center = playerctl focusedw
 bottom = true
 monitor = eDP-1
 wm-restack = none
