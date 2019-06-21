@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/davidv7/.config/ranger/colorschemes'
+let g:netrw_dirhist_2='/home/davidv7'
+let g:netrw_dirhist_3='/home/davidv7/.config/nvim'
+let g:netrw_dirhist_4='/home/davidv7/.config/hexchat/logs'
+let g:netrw_dirhist_5='/home/davidv7/.config/hexchat/logs/freenode'
