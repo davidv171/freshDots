@@ -1,0 +1,9 @@
+#!/bin/bash
+# Print out touchpad status
+filepath="/var/tmp/tcs"
+status=$(cat "$filepath")
+if [[ $status == "on" ]];then
+    echo "\|0|/"
+else 
+    echo "\|x|/"
+fi

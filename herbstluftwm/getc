@@ -1,0 +1,28 @@
+#!/bin/bash
+shopt -s extglob
+class="$(herbstclient get_attr clients.focus.class)"
+case $class in
+    "Firefox"*)
+        echo -e "$class "
+    ;;
+    "Google-chrome"*)
+        echo -e "$class "
+    ;;
+    "TelegramDesktop"*)
+        echo -e "$class "
+    ;;
+    "Emacs"*)
+        echo -e "$class "
+    ;;
+    "NetBeans IDE 8.2"*)
+        echo -e "$class "
+    ;;
+    "Invalid path"*)
+	# Print empty string, hc didnt find a window
+        echo -e ""
+    ;;
+    *)
+        echo -e "$class"
+    ;;
+esac
+exit 0

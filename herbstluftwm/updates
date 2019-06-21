@@ -1,0 +1,4 @@
+#!/bin/bash
+#Lists the number of available updates
+updates="$(zypper lu | wc -l)"
+echo " $updates"

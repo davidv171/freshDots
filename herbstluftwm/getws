@@ -1,0 +1,7 @@
+#!/bin/bash
+ws="$(herbstclient get_attr tags.focus.name)"
+if [[ $ws == "dialog" || $ws == "scratchpad" ]];then
+   echo "-> $ws"
+   else 
+       echo ""
+fi

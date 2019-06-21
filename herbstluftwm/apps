@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#Just get the list of app images in our app images folder and pipe it into rofi, launch selection
+#Reminder: these are all in our PATH
+folder="$HOME/Documents/appImages"
+choice="$(ls $folder | rofi -dmenu)"
+$choice &
