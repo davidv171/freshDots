@@ -23,6 +23,8 @@ inoremap [ []<left>
 inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
+" Map Ctrl-Backspace to delete the previous word in insert mode.
+:imap <C-BS> <C-W>
 " End a line with a semicolon
 nnoremap ; <Esc>A;
     " 'quote' a word
@@ -34,15 +36,15 @@ nnoremap qd :silent! normal mpea"<Esc>bi"<Esc>`pl
 nnoremap wq :silent! normal mpeld bhd `ph<CR>
 nnoremap ql :silent! normal mpEA"<Esc>bi"<Esc>`pl
 " Tabs bruh
-nnoremap th  :tabfirst<CR>
-nnoremap tk  :tabnext<CR>
-nnoremap tj  :tabprev<CR>
-nnoremap tl  :tablast<CR>
+nnoremap tj  :tabfirst<CR>
+nnoremap tl  :tabnext<CR>
+nnoremap th  :tabprev<CR>
+nnoremap tk  :tablast<CR>
 nnoremap tt  :tabedit<Space>
 nnoremap tn  :tabnext<Space>
 nnoremap tm  :tabm<Space>
 nnoremap td  :tabclose<CR>
-
+nnoremap tr  :tabo<CR>
 
 nnoremap <C-y> 1gt<CR>
 nnoremap <C-x> 2gt<CR>
@@ -50,6 +52,7 @@ nnoremap <C-v> 3gt<CR>
 nnoremap <C-b> 4gt<CR>
 nnoremap <A-n> :tabnext<CR>
 nnoremap <A-p> :tabprev<CR>
+nnoremap <A-1> 1gt<CR>
 nnoremap <F1> 1gt<CR>
 nnoremap <F2> 2gt<CR>
 nnoremap <F3> 3gt<CR>
@@ -91,6 +94,7 @@ autocmd VimEnter * :syntax on
 " Plugins
 
 call plug#begin('~/.local/share/nvim/plugged')
+
     Plug 'scrooloose/nerdtree'
 
     Plug 'itchyny/lightline.vim'
@@ -119,15 +123,18 @@ call plug#begin('~/.local/share/nvim/plugged')
 
     Plug 'tpope/vim-fugitive'
 
+    Plug 'magicalbanana/sql-syntax-vim'
+
     Plug 'itspriddle/vim-shellcheck'
 
-
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 call plug#end()
 
 
 " Toggle nerdtree on control-n
 map <C-n> :NERDTreeToggle<CR>
+map <C-f> :FZF<CR>
 
 let g:lightline = {
       \ 'colorscheme': 'PaperColor',
@@ -175,11 +182,56 @@ set backspace=indent,eol,start
 set undofile " Maintain undo history between sessions
 set undodir=~/.vim/undodir
 
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
 let g:go_fmt_command = "goimports"
 
 " Status line types/signatures.
 let g:go_auto_type_info = 1
 autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd BufEnter * silent! lcd %:p:h
+set rtp+=/usr/bin/fzf
+
+
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" In Neovim, you can set up fzf window using a Vim command
+let g:fzf_layout = { 'window': 'enew' }
+let g:fzf_layout = { 'window': '-tabnew' }
+let g:fzf_layout = { 'window': '10new' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+
+
 set background=light
 set termguicolors
 

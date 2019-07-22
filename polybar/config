@@ -117,7 +117,7 @@ label-visible-padding = 4
 ;label-unfocused = 
 [module/time]
 type = internal/date
-format-foreground = #df0000
+format-foreground = #4271ae
 format-background = #d9ddd9
 format-padding = 4
 interval = 1.0
@@ -180,15 +180,15 @@ use-ui-max = true
 format-volume-padding = 4
 format-muted-padding = 4
 format-muted-background = #d9ddd9
-format-muted-foreground = #df0000
+format-muted-foreground = #4271ae
 format-volume-background = #d9ddd9
-format-volume-foreground = #df0000
+format-volume-foreground = #4271ae
 ; Available tags:
 ;   <label-volume> (default)
 ;   <ramp-volume>
 ;   <bar-volume>
 format-volume = <ramp-volume> <label-volume>
-format-foreground = #df0000
+format-foreground = #4271ae
 ; Available tags:
 ;   <label-muted> (default)
 ;   <ramp-volume>
