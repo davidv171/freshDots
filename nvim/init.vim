@@ -48,7 +48,6 @@ nnoremap tr  :tabo<CR>
 
 nnoremap <C-y> 1gt<CR>
 nnoremap <C-x> 2gt<CR>
-nnoremap <C-v> 3gt<CR>
 nnoremap <C-b> 4gt<CR>
 nnoremap <A-n> :tabnext<CR>
 nnoremap <A-p> :tabprev<CR>
@@ -109,8 +108,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 
     Plug 'mhinz/vim-startify'
 
-    Plug 'w0rp/ale'
-
     Plug 'airblade/vim-gitgutter'
 
     Plug 'zeekay/vim-beautify'
@@ -129,12 +126,24 @@ call plug#begin('~/.local/share/nvim/plugged')
 
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
+    Plug 'dkarter/bullets.vim'
+
+    Plug 'buoto/gotests-vim'
+
 call plug#end()
 
 
 " Toggle nerdtree on control-n
 map <C-n> :NERDTreeToggle<CR>
 map <C-f> :FZF<CR>
+autocmd FileType go nmap <silent> <Leader>d <Plug>(go-def-tab)
+autocmd FileType go :let mapleader = ","
+autocmd FileType go map <C-i> :GoCallees
+autocmd FileType go nnoremap gt :GoTests
+autocmd FileType go nnoremap gta :GoTestsAll
+autocmd FileType go nnoremap r :GoRename
+
+let g:go_auto_sameids = 1
 
 let g:lightline = {
       \ 'colorscheme': 'PaperColor',
@@ -229,7 +238,12 @@ let g:fzf_colors =
 " previous-history instead of down and up. If you don't like the change,
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
-
+let g:bullets_enabled_file_types = [
+    \ 'markdown',
+    \ 'text',
+    \ 'gitcommit',
+    \ 'scratch'
+    \]
 
 
 set background=light
